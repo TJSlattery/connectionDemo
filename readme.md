@@ -70,14 +70,12 @@ node wellDesignedApp.js
 
 ### Slow App (`badlyDesignedApp.js`)
 ```
-MongoDB connection closed.
 Operation 5 completed in 1531 ms
 ```
 
 ### Fast App (`wellDesignedApp.js`)
 ```
 Total performDatabaseOperationsEfficiently function execution time: 238 ms
-MongoDB connection gracefully closed.
 ```
 
 ## Why is Connection Pooling Faster?
