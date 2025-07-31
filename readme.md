@@ -70,12 +70,12 @@ node wellDesignedApp.js
 
 ### Slow App (`badlyDesignedApp.js`)
 ```
-Operation 5 completed in 1531 ms
+Total performDatabaseOperations function execution time: 1438 ms
 ```
 
 ### Fast App (`wellDesignedApp.js`)
 ```
-Total performDatabaseOperationsEfficiently function execution time: 238 ms
+Total performDatabaseOperationsEfficiently function execution time: 242 ms
 ```
 
 ## Why is Connection Pooling Faster?

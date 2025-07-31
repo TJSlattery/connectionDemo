@@ -50,8 +50,8 @@ async function performDatabaseOperationsEfficiently(data) {
     try {
         // Get the connected client instance (will be reused from the pool)
         const connectedClient = await connectToMongo();
-        const db = connectedClient.db(); // Default database from URI or specify one like .db('my_specific_db')
-        const collection = db.collection('mycollection');
+        const db = connectedClient.db();
+        const collection = db.collection('sample');
 
         // --- Timing for Insert Operation ---
         const insertStart = Date.now();
@@ -60,14 +60,12 @@ async function performDatabaseOperationsEfficiently(data) {
         console.log(`Document inserted with _id: ${insertResult.insertedId}`);
         console.log(`  > Insert operation took: ${insertEnd - insertStart} ms (App to DB & Back)`);
 
-
         // --- Timing for Find Operation ---
         const findStart = Date.now();
-        // .toArray() fetches all documents, which can be inefficient for large collections
-        // For production, consider pagination or limiting results.
         const documents = await collection.find({}).toArray();
         const findEnd = Date.now();
-        console.log("Found documents:", documents.map(doc => ({ _id: doc._id, timestamp: doc.timestamp, value: doc.value }))); // Cleaned output for brevity
+        // Output only relevant fields for brevity
+        console.log("Found documents:", documents.map(doc => ({ _id: doc._id, timestamp: doc.timestamp, value: doc.value })));
         console.log(`  > Find operation took: ${findEnd - findStart} ms (App to DB & Back, including data transfer)`);
 
     } catch (error) {
@@ -108,6 +106,17 @@ async function runEfficientApp() {
         return; // Exit if initial connection fails
     }
 
+    // Clear the collection before running
+    try {
+        const connectedClient = await connectToMongo();
+        const db = connectedClient.db();
+        const collection = db.collection('sample');
+        await collection.deleteMany({});
+        console.log("Collection 'sample' cleared before test run.");
+    } catch (error) {
+        console.error("Error clearing collection before test run:", error);
+    }
+
     // Simulate multiple calls to the database operation function
     for (let i = 0; i < 5; i++) {
         console.log(`\n--- Operation ${i + 1} (Efficient) ---`);
@@ -116,7 +125,6 @@ async function runEfficientApp() {
             value: `efficient_data_${i}`
         });
         // Introduce a small delay to better observe individual operation times
-        // and avoid overwhelming the system in a tight loop during simulation.
         await new Promise(resolve => setTimeout(resolve, 50));
     }
 
