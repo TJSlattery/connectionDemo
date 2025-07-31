@@ -1,6 +1,3 @@
-## Why is Connection Pooling Faster?
-
-Connection pooling reuses a single connection for many operations, avoiding the slow process of repeatedly opening and closing connections. This reduces latency, saves resources, and allows your app to handle more requests efficiently. As shown above, the efficient app is much faster, especially as the number of operations increases.
 # MongoDB Connection Demo
 
 This repository demonstrates two different approaches to connecting a Node.js application to MongoDB:
@@ -69,9 +66,6 @@ node wellDesignedApp.js
 - The inefficient app will repeatedly connect and disconnect, which is slow and resource-intensive.
 - The efficient app will connect once, reuse the connection, and close it at the end, which is much faster and scalable.
 
-
-
-
 ## Sample Test Results
 
 ### Slow App (`badlyDesignedApp.js`)
@@ -85,6 +79,10 @@ Operation 5 completed in 1531 ms
 Total performDatabaseOperationsEfficiently function execution time: 238 ms
 MongoDB connection gracefully closed.
 ```
+
+## Why is Connection Pooling Faster?
+
+Connection pooling reuses a single connection for many operations, avoiding the slow process of repeatedly opening and closing connections. This reduces latency, saves resources, and allows your app to handle more requests efficiently. As shown above, the efficient app is much faster, especially as the number of operations increases.
 
 ## License
 MIT
