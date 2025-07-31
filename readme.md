@@ -62,7 +62,7 @@ node wellDesignedApp.js
 
 
 ## What to Observe
-- Both scripts will insert and fetch documents in a collection (named `sample` in the inefficient app, `mycollection` in the efficient app).
+- Both scripts will insert and fetch documents in a collection.
 - The inefficient app will repeatedly connect and disconnect, which is slow and resource-intensive.
 - The efficient app will connect once, reuse the connection, and close it at the end, which is much faster and scalable.
 
